@@ -36,7 +36,7 @@ VARIABLES
 ## Using curl
 
 ```sh
-curl https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+curl https://github.com/mh-cbon/latest/raw/0.0.1/install.sh \
 | GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' sh -xe
 ```
 
@@ -44,6 +44,6 @@ curl https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 
 ```sh
 wget -q -O - --no-check-certificate \
-https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+https://github.com/mh-cbon/latest/raw/0.0.1/install.sh \
 | GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' VERSION='x.x.x' sh -xe
 ```
