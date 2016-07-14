@@ -36,16 +36,14 @@ VARIABLES
 ## Using curl
 
 ```sh
-GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' \
 curl https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
-| sh -x
+| GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' sh -xe
 ```
 
 ## Using wget
 
 ```sh
-GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' VERSION='x.x.x' \
 wget -q -O - --no-check-certificate \
 https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
-| sh -x
+| GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' VERSION='x.x.x' sh -xe
 ```
