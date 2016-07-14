@@ -10,14 +10,14 @@ NAME:
   latest - 0.0.1
 
 USAGE:
-  latest [GH_USR/GH_REPO] [ASSET_NAME]
-  latest [GH_USR/GH_REPO] [ASSET_NAME] [VERSION]
+  latest
+  latest
 
 OPTIONS:
-  [GH_USR/GH_REPO]    Your user name and repository on github.
-  [ASSET_NAME]        The name of the asset to download and process.
+  ${GH}               Your user name and repository on github.
+  ${ASSET}            The name of the asset to download and process.
                       You can use ${ARCH}, ${VERSION}, ${EXT}, ${REPO}
-  [VERSION]           The version to use, or empty to use latest.
+  ${VERSION}          The version to use, or empty to use latest.
 
 VARIABLES
   ${ARCH}             Is automatically determined from `uname`.
@@ -33,16 +33,19 @@ VARIABLES
                       Given 'mh-cbon/tomate' => 'tomate'
 ```
 
-## Using wget
-
-```sh
-wget -q -O - --no-check-certificate https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
-| sh -x  mh-cbon/go-bin-deb '${REPO}-${ARCH}${EXT}'
-```
-
 ## Using curl
 
 ```sh
+GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' \
 curl https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
-| sh -x  mh-cbon/go-bin-deb '${REPO}-${ARCH}${EXT}'
+| sh -x
+```
+
+## Using wget
+
+```sh
+GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' VERSION='x.x.x' \
+wget -q -O - --no-check-certificate \
+https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+| sh -x
 ```

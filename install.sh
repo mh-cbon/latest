@@ -1,8 +1,8 @@
 #!/bin/sh -x -e
 
-GH=$1
-ASSET=$2
-VERSION=$3
+# GH=$1
+# ASSET=$2
+# VERSION=$3
 
 # find current system arch
 ARCH=$(uname -m)
