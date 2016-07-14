@@ -21,7 +21,7 @@ if ["${VERSION}" == ""]; then
   if type "wget" > /dev/null; then
     LATEST=`wget -q --no-check-certificate -O - https://api.github.com/repos/${GH}/releases/latest`
   elif type "curl" > /dev/null; then
-    LATEST=`curl https://api.github.com/repos/${GH}/releases/latest`
+    LATEST=`curl -L https://api.github.com/repos/${GH}/releases/latest`
   fi
   LATEST=`echo "${LATEST}" | grep -E '"tag_name": "([^"]+)"' | cut -d '"' -f4`
   VERSION=`echo ${LATEST}`
@@ -52,7 +52,7 @@ fi
 if type "wget" > /dev/null; then
   wget -O ${ASSET} --no-check-certificate ${URL}
 elif type "curl" > /dev/null; then
-  curl -o ${ASSET} ${URL}
+  curl -L -o ${ASSET} ${URL}
 fi
 
 # is it a debian package ?

@@ -36,7 +36,7 @@ VARIABLES
 ## Using curl
 
 ```sh
-curl https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
 | GH=mh-cbon/go-bin-deb ASSET='${REPO}-${ARCH}${EXT}' sh -xe
 ```
 
