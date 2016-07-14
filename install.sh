@@ -58,16 +58,29 @@ fi
 # is it a debian package ?
 if [[ "${ASSET}" == *".deb" ]]; then
   # echo "it s a deb!"
-  sudo dpkg -i ${ASSET}
-  sudo apt-get install --fix-missing
+  # docker does not provide sudo
+  if type "sudo" > /dev/null; then
+    sudo dpkg -i ${ASSET}
+    sudo apt-get install --fix-missing
+  else
+    dpkg -i ${ASSET}
+    apt-get install --fix-missing
+  fi
 
 # is it an rpm package ?
 elif [[ "${ASSET}" == *".rpm" ]]; then
   # echo "it s an rpm!"
   # does the system run yum or dnf ?
+  PBIN=""
   if type "dnf" > /dev/null; then
-    sudo dnf install ${ASSET} -y
+    PBIN="dnf"
   elif type "yum" > /dev/null; then
-    sudo yum install ${ASSET} -y
+    PBIN="yum"
+  fi
+  # docker does not provide sudo
+  if type "sudo" > /dev/null; then
+    sudo ${PBIN} install ${ASSET} -y
+  else
+    ${PBIN} install ${ASSET} -y
   fi
 fi
