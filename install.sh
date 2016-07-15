@@ -61,7 +61,7 @@ elif type "curl" > /dev/null; then
 fi
 
 # is it a debian package ?
-if [ "${EXT}" == ".deb" ]; then
+if [ "${EXT}" = ".deb" ]; then
   # echo "it s a deb!"
   # docker does not provide sudo
   if type "sudo" > /dev/null; then
@@ -73,7 +73,7 @@ if [ "${EXT}" == ".deb" ]; then
   fi
 
 # is it an rpm package ?
-elif [ "${EXT}" == ".rpm" ]; then
+elif [ "${EXT}" = ".rpm" ]; then
   # echo "it s an rpm!"
   # does the system run yum or dnf ?
   PBIN=""
