@@ -15,6 +15,11 @@ esac
 # determine repository name
 REPO=`echo $GH | cut -d '/' -f 2`
 
+# define default asset format
+if ["${ASSET}" == ""]; then
+  ASSET='${REPO}-${ARCH}${EXT}'
+fi
+
 # determine version to dl
 if ["${VERSION}" == ""]; then
   # find the latest tag
