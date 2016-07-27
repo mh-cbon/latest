@@ -1,4 +1,4 @@
-#!/bin/sh -x -e
+#!/bin/sh -e
 
 # GH=$1
 # ASSET=$2
@@ -89,3 +89,6 @@ elif [ "${EXT}" = ".rpm" ]; then
     ${PBIN} install ${ASSET} -y
   fi
 fi
+
+# clean up
+rm -f ${ASSET}
