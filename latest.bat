@@ -20,7 +20,7 @@ go-msi.exe --version >nul 2>&1 && (
     echo found go-msi
 ) || (
   echo "downloading"
-  C:\Program Files\gh-api-cli\gh-api-cli.exe dl-assets -o %USER% -r %REPO% -g "*%ARCH%*msi" --ver latest --out "C:\%REPO%.msi"
+  "C:\Program Files\gh-api-cli\gh-api-cli.exe" dl-assets -o %USER% -r %REPO% -g "*%ARCH%*msi" --ver latest --out "C:\%REPO%.msi"
   echo "installing"
   msiexec.exe /i C:\%REPO%.msi /quiet
   echo "saving path"
