@@ -19,7 +19,6 @@ if type "dpkg" > /dev/null; then
   elif type "curl" > /dev/null; then
     sudo curl -L http://${USER}.github.io/${REPO}/apt/${REPO}.list > /etc/apt/sources.list.d/${REPO}.list
   fi
-  sudo apt-get update
   sudo apt-get install ${REPO} -y
 
 elif type "dnf" > /dev/null; then
