@@ -14,6 +14,7 @@ gh-api-cli.exe --version >nul 2>&1 && (
   msiexec.exe /i C:\gh-api-cli.msi /quiet
   echo "saving path"
   set "PATH=C:\Program Files\gh-api-cli\;%PATH%"
+  setx "PATH=C:\Program Files\gh-api-cli\;%PATH%"
 );
 
 go-msi.exe --version >nul 2>&1 && (
@@ -25,4 +26,5 @@ go-msi.exe --version >nul 2>&1 && (
   msiexec.exe /i C:\%REPO%.msi /quiet
   echo "saving path"
   set "PATH=C:\Program Files\%REPO%\;%PATH%"
+  setx "PATH=C:\Program Files\%REPO%\;%PATH%"
 )
