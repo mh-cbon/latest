@@ -13,16 +13,16 @@ gh-api-cli.exe --version >nul 2>&1 && (
   echo "installing"
   msiexec.exe /i C:\gh-api-cli.msi /quiet
   echo "saving path"
-  setx PATH "C:\Program Files\gh-api-cli\;%PATH%"
+  setx -m PATH "C:\Program Files\gh-api-cli\;%PATH%"
 );
 
 go-msi.exe --version >nul 2>&1 && (
     echo found go-msi
 ) || (
   echo "downloading"
-  gh-api-cli.exe dl-assets -o %USER% -r %REPO% -g "*%ARCH%*msi" --ver latest --out "C:\%REPO%.msi"
+  C:\Program Files\gh-api-cli\gh-api-cli.exe dl-assets -o %USER% -r %REPO% -g "*%ARCH%*msi" --ver latest --out "C:\%REPO%.msi"
   echo "installing"
   msiexec.exe /i C:\%REPO%.msi /quiet
   echo "saving path"
-  setx PATH "C:\Program Files\%REPO%\;%PATH%"
+  setx -m PATH "C:\Program Files\%REPO%\;%PATH%"
 )
