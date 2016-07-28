@@ -28,8 +28,7 @@ elif type "dnf" > /dev/null; then
   elif type "curl" > /dev/null; then
     sudo curl -L http://${USER}.github.io/${REPO}/rpm/${REPO}.repo > /etc/yum.repos.d/${REPO}.repo
   fi
-  sudo dnf update
-  sudo dnf install ${REPO} -y
+  sudo dnf --refresh install ${REPO} -y
 
 elif type "yum" > /dev/null; then
   if type "wget" > /dev/null; then
@@ -37,7 +36,6 @@ elif type "yum" > /dev/null; then
   elif type "curl" > /dev/null; then
     sudo curl -L http://${USER}.github.io/${REPO}/rpm/${REPO}.repo > /etc/yum.repos.d/${REPO}.repo
   fi
-  sudo yum update
-  sudo yum install ${REPO} -y
+  sudo yum --refresh install ${REPO} -y
 
 fi
