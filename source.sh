@@ -14,26 +14,42 @@ REPO=`echo ${GH} | cut -d '/' -f 2`
 USER=`echo ${GH} | cut -d '/' -f 1`
 
 if type "dpkg" > /dev/null; then
+  
+  FILE=/etc/apt/sources.list.d/${REPO}.list
+  URL=http://${USER}.github.io/${REPO}/apt/${REPO}.list
+
   if type "wget" > /dev/null; then
-    sudo wget -O /etc/apt/sources.list.d/${REPO}.list http://${USER}.github.io/${REPO}/apt/${REPO}.list
+    sudo rm -f ${FILE}
+    sudo wget -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
-    sudo curl -L http://${USER}.github.io/${REPO}/apt/${REPO}.list > /etc/apt/sources.list.d/${REPO}.list
+    sudo curl -L ${URL} > ${FILE}
   fi
+  sudo apt-get update
   sudo apt-get install ${REPO} -y
 
 elif type "dnf" > /dev/null; then
+
+  FILE=/etc/yum.repos.d/${REPO}.repo
+  URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
+
   if type "wget" > /dev/null; then
-    sudo wget -O /etc/yum.repos.d/${REPO}.repo http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
+    sudo rm -f ${FILE}
+    sudo wget -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
-    sudo curl -L http://${USER}.github.io/${REPO}/rpm/${REPO}.repo > /etc/yum.repos.d/${REPO}.repo
+    sudo curl -L ${URL} > ${FILE}
   fi
   sudo dnf install ${REPO} -y
 
 elif type "yum" > /dev/null; then
+
+  FILE=/etc/yum.repos.d/${REPO}.repo
+  URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
+
   if type "wget" > /dev/null; then
-    sudo wget -O /etc/yum.repos.d/${REPO}.repo http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
+    sudo rm -f ${FILE}
+    sudo wget -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
-    sudo curl -L http://${USER}.github.io/${REPO}/rpm/${REPO}.repo > /etc/yum.repos.d/${REPO}.repo
+    sudo curl -L ${URL} > ${FILE}
   fi
   sudo yum install ${REPO} -y
 
