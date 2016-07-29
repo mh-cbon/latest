@@ -23,6 +23,7 @@ if type "dpkg" > /dev/null; then
   elif type "curl" > /dev/null; then
     sudo curl -L ${URL} > ${FILE}
   fi
+  sudo apt-get install apt-transport-https -y
   sudo apt-get update
   sudo apt-get install ${REPO} -y
 
