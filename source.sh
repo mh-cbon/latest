@@ -14,12 +14,11 @@ REPO=`echo ${GH} | cut -d '/' -f 2`
 USER=`echo ${GH} | cut -d '/' -f 1`
 
 if type "dpkg" > /dev/null; then
-  
+
   FILE=/etc/apt/sources.list.d/${REPO}.list
   URL=http://${USER}.github.io/${REPO}/apt/${REPO}.list
 
   if type "wget" > /dev/null; then
-    sudo rm -f ${FILE}
     sudo wget -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
     sudo curl -L ${URL} > ${FILE}
@@ -33,7 +32,6 @@ elif type "dnf" > /dev/null; then
   URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
 
   if type "wget" > /dev/null; then
-    sudo rm -f ${FILE}
     sudo wget -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
     sudo curl -L ${URL} > ${FILE}
@@ -46,7 +44,6 @@ elif type "yum" > /dev/null; then
   URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
 
   if type "wget" > /dev/null; then
-    sudo rm -f ${FILE}
     sudo wget -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
     sudo curl -L ${URL} > ${FILE}
