@@ -9,7 +9,7 @@ gh-api-cli.exe --version >nul 2>&1 && (
     echo found gh-api-cli
 ) || (
   echo "downloading"
-  curl -fsSL -o C:\gh-api-cli.msi https://github.com/mh-cbon/gh-api-cli/releases/download/2.0.3/gh-api-cli-amd64.msi
+  curl -fsSL -o C:\gh-api-cli.msi https://github.com/mh-cbon/gh-api-cli/releases/download/3.0.0/gh-api-cli-amd64.msi
   echo "installing"
   msiexec.exe /i C:\gh-api-cli.msi /quiet
   echo "saving path"
