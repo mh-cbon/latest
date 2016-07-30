@@ -19,10 +19,12 @@ go-msi.exe --version >nul 2>&1 && (
     echo found go-msi
 ) || (
   echo "downloading"
+
   echo "C:\Program Files\gh-api-cli\gh-api-cli.exe dl-assets -t "GHTOKEN" -o %USER% -r %REPO% -g "*%ARCH%*msi" --ver latest --out "C:\%REPO%.msi" --skip-prerelease=yes"
-  echo off
+  @echo off
   "C:\Program Files\gh-api-cli\gh-api-cli.exe" dl-assets -t "%GHTOKEN%" -o %USER% -r %REPO% -g "*%ARCH%*msi" --ver latest --out "C:\%REPO%.msi" --skip-prerelease=yes
-  echo on
+  @echo on
+  
   dir *.msi
   echo "installing"
   msiexec.exe /i C:\%REPO%.msi /quiet
