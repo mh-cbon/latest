@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Latest by mh-cbon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Latest</h1>
+      <h2 class="project-tagline">A centralized and publicly hosted sh script to install latest debian or rpm package</h2>
+      <a href="https://github.com/mh-cbon/latest" class="btn">View on GitHub</a>
+      <a href="https://github.com/mh-cbon/latest/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/mh-cbon/latest/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="latest" class="anchor" href="#latest" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>latest</h1>
+
+<p>Publicly centralized hosted <code>sh</code> and <code>bat</code> scripts.</p>
+
+<p>This tool is part of the <a href="https://github.com/mh-cbon/go-github-release">go-github-release workflow</a></p>
+
+<h2>
+<a id="installsh---usage" class="anchor" href="#installsh---usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>install.sh - Usage</h2>
+
+<p>Installs latest <code>debian</code> or <code>rpm</code> packages hosted on github releases page.</p>
+
+<div class="highlight highlight-source-shell"><pre>NAME:
+  latest - 0.0.1
+
+USAGE:
+  latest
+
+OPTIONS:
+  <span class="pl-smi">${GH}</span>               Your user name and repository on github.
+  <span class="pl-smi">${ASSET}</span>            The name of the asset to download and process.
+                      You can use <span class="pl-smi">${ARCH}</span>, <span class="pl-smi">${VERSION}</span>, <span class="pl-smi">${EXT}</span>, <span class="pl-smi">${REPO}</span>
+  <span class="pl-smi">${VERSION}</span>          The version to use, or empty to use latest.
+
+VARIABLES
+  <span class="pl-smi">${ARCH}</span>             Is automatically determined from <span class="pl-s"><span class="pl-pds">`</span>uname<span class="pl-pds">`</span></span>.
+                      Yields a golang compatible value.
+                      https://golang.org/doc/install/source#environment
+  <span class="pl-smi">${VERSION}</span>          If empty, it is determined from github api.
+                      It uses the tag_name of the release.
+  <span class="pl-smi">${EXT}</span>              It is detected from the system capabilities.
+                      If the system runs <span class="pl-s"><span class="pl-pds">'</span>dpkg<span class="pl-pds">'</span></span> =<span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>.deb<span class="pl-pds">'</span></span>
+                      If the system runs <span class="pl-s"><span class="pl-pds">'</span>dnf<span class="pl-pds">'</span></span> =<span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>.rpm<span class="pl-pds">'</span></span>
+                      If the system runs <span class="pl-s"><span class="pl-pds">'</span>yum<span class="pl-pds">'</span></span> =<span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>.rpm<span class="pl-pds">'</span></span>
+  <span class="pl-smi">${REPO}</span>             It is detected from your input.
+                      Given <span class="pl-s"><span class="pl-pds">'</span>mh-cbon/tomate<span class="pl-pds">'</span></span> =<span class="pl-k">&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>tomate<span class="pl-pds">'</span></span></pre></div>
+
+<h3>
+<a id="using-curl" class="anchor" href="#using-curl" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using curl</h3>
+
+<div class="highlight highlight-source-shell"><pre>curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+<span class="pl-k">|</span> GH=mh-cbon/go-bin-deb ASSET=<span class="pl-s"><span class="pl-pds">'</span>${REPO}-${ARCH}${EXT}<span class="pl-pds">'</span></span> sh -xe</pre></div>
+
+<h3>
+<a id="using-wget" class="anchor" href="#using-wget" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using wget</h3>
+
+<div class="highlight highlight-source-shell"><pre>wget -q -O - --no-check-certificate \
+https://raw.githubusercontent.com/mh-cbon/latest/master/install.sh \
+<span class="pl-k">|</span> GH=mh-cbon/go-bin-deb ASSET=<span class="pl-s"><span class="pl-pds">'</span>${REPO}-${ARCH}${EXT}<span class="pl-pds">'</span></span> VERSION=<span class="pl-s"><span class="pl-pds">'</span>x.x.x<span class="pl-pds">'</span></span> sh -xe</pre></div>
+
+<h2>
+<a id="sourcesh---usage" class="anchor" href="#sourcesh---usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>source.sh - Usage</h2>
+
+<p>Installs a source <code>debian</code> or <code>rpm</code> repository hosted on <code>gh-pages</code></p>
+
+<div class="highlight highlight-source-shell"><pre>NAME:
+  <span class="pl-c1">source</span> - 0.0.1
+
+USAGE:
+  latest
+
+OPTIONS:
+  <span class="pl-smi">${GH}</span>               Your user name and repository on github.</pre></div>
+
+<h3>
+<a id="using-curl-1" class="anchor" href="#using-curl-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using curl</h3>
+
+<div class="highlight highlight-source-shell"><pre>curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+<span class="pl-k">|</span> GH=mh-cbon/go-bin-deb sh -xe</pre></div>
+
+<h3>
+<a id="using-wget-1" class="anchor" href="#using-wget-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using wget</h3>
+
+<div class="highlight highlight-source-shell"><pre>wget -q -O - --no-check-certificate \
+https://raw.githubusercontent.com/mh-cbon/latest/master/source.sh \
+<span class="pl-k">|</span> GH=mh-cbon/go-bin-deb sh -xe</pre></div>
+
+<h2>
+<a id="latestbat---usage" class="anchor" href="#latestbat---usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>latest.bat - Usage</h2>
+
+<p>Installs latest <code>msi</code> packages hosted on github releases page.</p>
+
+<div class="highlight highlight-source-shell"><pre>NAME:
+  latest - 0.0.1
+
+USAGE:
+  latest <span class="pl-k">&lt;</span>USER<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>REPO<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>ARCH<span class="pl-k">&gt;</span>
+
+OPTIONS:
+  <span class="pl-smi">${USER}</span>             Your Github user name.
+  <span class="pl-smi">${REPO}</span>             Your Github repository name.
+  <span class="pl-smi">${ARCH}</span>             Architecture of the target system.</pre></div>
+
+<h3>
+<a id="using-curl-2" class="anchor" href="#using-curl-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Using curl</h3>
+
+<div class="highlight highlight-source-shell"><pre>curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/latest.bat
+cmd /C latest.bat mh-cbon gh-api-cli amd64</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/mh-cbon/latest">Latest</a> is maintained by <a href="https://github.com/mh-cbon">mh-cbon</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
