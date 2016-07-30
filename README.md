@@ -2,6 +2,8 @@
 
 Publicly centralized hosted `sh` and `bat` scripts.
 
+This tool is part of the [go-github-release workflow](https://github.com/mh-cbon/go-github-release)
+
 ## install.sh - Usage
 
 Installs latest `debian` or `rpm` packages hosted on github releases page.
