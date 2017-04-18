@@ -22,13 +22,20 @@ func main() {
 	var repo string
 	var asset string
 	var version string
+	var showVer bool
 
 	flag.StringVar(&asset, "asset", "", "The asset to download.")
 	flag.StringVar(&repo, "repo", "", "The repo slug such USER/REPO.")
 	flag.StringVar(&arch, "arch", "amd64", "The arch to select the asset.")
 	flag.StringVar(&version, "version", "", "The version to select the asset.")
+	flag.BoolVar(&showVer, "v", false, "Show version")
 
 	flag.Parse()
+
+	if showVer {
+		fmt.Println("latest - 0.0.1")
+		os.Exit(0)
+	}
 
 	if arch == "" {
 		arch = runtime.GOARCH
