@@ -9,6 +9,7 @@ import (
 	"net/http"
 	"os"
 	"runtime"
+	"strings"
 
 	"github.com/mh-cbon/latest/stringexec"
 )
@@ -37,6 +38,9 @@ func main() {
 		os.Exit(0)
 	}
 
+	x := strings.Split(repo, "/")
+	name := x[1]
+
 	if arch == "" {
 		arch = runtime.GOARCH
 	}
@@ -55,7 +59,7 @@ func main() {
 	}
 
 	if asset == "" {
-		asset = fmt.Sprintf("%v-%v%v", repo, arch, ext)
+		asset = fmt.Sprintf("%v-%v%v", name, arch, ext)
 	}
 
 	if version == "" {
