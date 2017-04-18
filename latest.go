@@ -138,7 +138,7 @@ func dlURL(u, to string) bool {
 		panic(err)
 	}
 	defer response.Body.Close()
-	f, err := os.Open(to)
+	f, err := os.Create(to)
 	if err != nil {
 		panic(err)
 	}
