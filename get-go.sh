@@ -21,7 +21,7 @@ else
 
   cd ${GOINSTALL}
 
-file="go1.8.1.linux-amd64.tar.gz"
+  file="go1.8.1.linux-amd64.tar.gz"
 
   if type "wget" > /dev/null; then
     [ -f "${file}" ] || wget https://storage.googleapis.com/golang/${file}
@@ -32,11 +32,12 @@ file="go1.8.1.linux-amd64.tar.gz"
   [ -d "go" ] || tar -xf ${file}
   [ -f "${file}" ] && rm ${file}
 
-  ls -al ${GOINSTALL}
-  ls -al ${GOINSTALL}/bin
 
   export GOROOT=/go/go/
   export PATH=$PATH:$GOROOT/bin
+
+  ls -al ${GOINSTALL}
+  ls -al ${GOROOT}/bin
 
   cd $oldpwd
 
