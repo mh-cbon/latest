@@ -11,7 +11,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/mh-cbon/go-bin-rpm/stringexec"
+	"github.com/mh-cbon/latest/stringexec"
 )
 
 func pushAssetsGh(version, ghToken, outbuild, glob string) {
