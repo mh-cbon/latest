@@ -4,7 +4,7 @@ set -e
 set -x
 
 # install go, specific to vagrant
-if type "go" > /dev/null; then
+if type "go version" > /dev/null; then
   echo "go already installed"
 
 else
