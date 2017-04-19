@@ -1,17 +1,12 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
-	"io"
-	"net/http"
 	"os"
 	"runtime"
 	"strings"
-
-	"github.com/mh-cbon/latest/stringexec"
 )
 
 var extDEB = ".deb"
@@ -64,7 +59,6 @@ func main() {
 
 	if version == "" {
 		u := fmt.Sprintf(`https://api.github.com/repos/%v/releases/latest`, repo)
-		fmt.Println("url", u)
 		r := getURL(u)
 		k := map[string]interface{}{}
 		json.Unmarshal(r, &k)
@@ -97,59 +91,5 @@ func main() {
 		}
 	}
 
-	os.Remove(asset)
-}
-
-func tryexec(w string, params ...interface{}) error {
-	w = fmt.Sprintf(w, params...)
-	cwd, err := os.Getwd()
-	if err != nil {
-		return err
-	}
-	fmt.Println("exec", w)
-	cmd, err := stringexec.Command(cwd, w)
-	if err != nil {
-		return err
-	}
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-	return cmd.Run()
-}
-
-func exec(w string, params ...interface{}) {
-	if err := tryexec(w, params...); err != nil {
-		panic(err)
-	}
-}
-
-func getURL(u string) []byte {
-	response, err := http.Get(u)
-	if err != nil {
-		panic(err)
-	}
-	defer response.Body.Close()
-	var ret bytes.Buffer
-	_, err = io.Copy(&ret, response.Body)
-	if err != nil {
-		panic(err)
-	}
-	return ret.Bytes()
-}
-
-func dlURL(u, to string) bool {
-	response, err := http.Get(u)
-	if err != nil {
-		panic(err)
-	}
-	defer response.Body.Close()
-	f, err := os.Create(to)
-	if err != nil {
-		panic(err)
-	}
-	defer f.Close()
-	_, err = io.Copy(f, response.Body)
-	if err != nil {
-		panic(err)
-	}
-	return true
+	removeAll(asset)
 }
