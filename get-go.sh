@@ -30,7 +30,6 @@ else
     [ -f "${file}" ] || curl -o ${file} https://storage.googleapis.com/golang/${file}
   fi
   [ -d "go" ] || tar -xf ${file}
-  [ -f "${file}" ] && rm ${file}
 
 
   export GOROOT=/go/go/
@@ -38,6 +37,8 @@ else
 
   ls -al ${GOINSTALL}
   ls -al ${GOROOT}/bin
+
+  [ -f "${file}" ] && rm ${file}
 
   cd $oldpwd
 
