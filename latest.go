@@ -76,19 +76,10 @@ func main() {
 	dlURL(assetU, asset)
 
 	if ext == extDEB {
-		if tryexec("type sudo") == nil {
-			exec(`sudo %v -i %v`, dmBin, asset)
-			exec(`sudo apt-get install --fix-missing`)
-		} else {
-			exec(`%v -i %v`, dmBin, asset)
-			exec(`apt-get install --fix-missing`)
-		}
+		maybesudo(`%v -i %v`, dmBin, asset)
+		maybesudo(`apt-get install --fix-missing`)
 	} else if ext == extRPM {
-		if tryexec("type sudo") == nil {
-			exec(`sudo %v install %v -y`, dmBin, asset)
-		} else {
-			exec(`%v install %v -y`, dmBin, asset)
-		}
+		maybesudo(`%v install %v -y`, dmBin, asset)
 	}
 
 	removeAll(asset)
