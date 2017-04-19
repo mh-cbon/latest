@@ -16,8 +16,13 @@ else
     echo "GOINSTALL set to ${GOINSTALL}"
   fi
 
-  sudo mkdir -p ${GOINSTALL}
-  [ -d "/home/vagrant" ] && sudo chown -R vagrant:vagrant -R ${GOINSTALL}
+  if type "sudo" > /dev/null; then
+    sudo mkdir -p ${GOINSTALL}
+    [ -d "/home/vagrant" ] && sudo chown -R vagrant:vagrant -R ${GOINSTALL}
+  else
+    mkdir -p ${GOINSTALL}
+    [ -d "/home/vagrant" ] && chown -R vagrant:vagrant -R ${GOINSTALL}
+  fi
 
   cd ${GOINSTALL}
 
