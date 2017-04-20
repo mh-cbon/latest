@@ -1,8 +1,22 @@
 # latest
 
-Publicly centralized hosted `sh` and `bat` scripts.
+Publicly centralized hosted scripts to
+
+- latest.bat: install go-msi
+- get-go.sh: install go
+- install.sh: install latest asset of a github release page
+- latest.go: a program to install latest asset of a github release page
+- source.sh: insall rpm/deb repository source
 
 This tool is part of the [go-github-release workflow](https://github.com/mh-cbon/go-github-release)
+
+## install.go - Usage
+
+```sh
+go install github.com/mh-cbon/latest
+latest -dry -repo=your/repo
+go run *go -dry -repo=your/repo
+```
 
 ## install.sh - Usage
 
