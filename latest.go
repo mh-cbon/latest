@@ -66,7 +66,6 @@ func main() {
 	}
 
 	if version == "" {
-		// shall improve that to better select the version.
 		u := fmt.Sprintf(`https://api.github.com/repos/%v/releases`, repo)
 		r := getURL(u)
 		all := []map[string]interface{}{}
