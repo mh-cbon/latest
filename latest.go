@@ -58,6 +58,7 @@ func main() {
 	}
 
 	if version == "" {
+		// shall improve that to better select the version.
 		u := fmt.Sprintf(`https://api.github.com/repos/%v/releases/latest`, repo)
 		r := getURL(u)
 		k := map[string]interface{}{}
@@ -77,9 +78,9 @@ func main() {
 
 	if ext == extDEB {
 		maybesudo(`%v -i %v`, dmBin, asset)
-		maybesudo(`apt-get install --fix-missing`)
+		maybesudo(`apt-get install --fix-missing --quiet`)
 	} else if ext == extRPM {
-		maybesudo(`%v install %v -y`, dmBin, asset)
+		maybesudo(`%v install %v -y --quiet`, dmBin, asset)
 	}
 
 	removeAll(asset)

@@ -19,13 +19,13 @@ if type "dpkg" > /dev/null; then
   URL=http://${USER}.github.io/${REPO}/apt/${REPO}.list
 
   if type "wget" > /dev/null; then
-    sudo wget -O ${FILE} ${URL}
+    sudo wget -q -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
-    sudo curl -L ${URL} > ${FILE}
+    sudo curl -s -L ${URL} > ${FILE}
   fi
-  sudo apt-get install apt-transport-https -y
-  sudo apt-get update
-  sudo apt-get install ${REPO} -y
+  sudo apt-get install apt-transport-https -y --quiet
+  sudo apt-get update --quiet
+  sudo apt-get install ${REPO} -y --quiet
 
 elif type "dnf" > /dev/null; then
 
@@ -33,11 +33,11 @@ elif type "dnf" > /dev/null; then
   URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
 
   if type "wget" > /dev/null; then
-    sudo wget -O ${FILE} ${URL}
+    sudo wget -q -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
-    sudo curl -L ${URL} > ${FILE}
+    sudo curl -s -L ${URL} > ${FILE}
   fi
-  sudo dnf install ${REPO} -y
+  sudo dnf install ${REPO} -y --quiet
 
 elif type "yum" > /dev/null; then
 
@@ -45,10 +45,10 @@ elif type "yum" > /dev/null; then
   URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
 
   if type "wget" > /dev/null; then
-    sudo wget -O ${FILE} ${URL}
+    sudo wget -q -O ${FILE} ${URL}
   elif type "curl" > /dev/null; then
-    sudo curl -L ${URL} > ${FILE}
+    sudo curl -s -L ${URL} > ${FILE}
   fi
-  sudo yum install ${REPO} -y
+  sudo yum install ${REPO} -y --quiet
 
 fi

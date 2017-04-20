@@ -26,7 +26,7 @@ if ["${VERSION}" == ""]; then
   if type "wget" > /dev/null; then
     LATEST=`wget -q --no-check-certificate -O - https://api.github.com/repos/${GH}/releases/latest`
   elif type "curl" > /dev/null; then
-    LATEST=`curl -L https://api.github.com/repos/${GH}/releases/latest`
+    LATEST=`curl -s -L https://api.github.com/repos/${GH}/releases/latest`
   fi
   LATEST=`echo "${LATEST}" | grep -E '"tag_name": "([^"]+)"' | cut -d '"' -f4`
   VERSION=`echo ${LATEST}`

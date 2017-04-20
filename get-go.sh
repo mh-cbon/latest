@@ -31,10 +31,10 @@ else
   [ -f "${file}" ] && rm ${file}
 
   if type "wget" > /dev/null; then
-    [ -f "${file}" ] || wget https://storage.googleapis.com/golang/${file}
+    [ -f "${file}" ] || wget -q https://storage.googleapis.com/golang/${file}
   fi
   if type "curl" > /dev/null; then
-    [ -f "${file}" ] || curl -o ${file} https://storage.googleapis.com/golang/${file}
+    [ -f "${file}" ] || curl -s -o ${file} https://storage.googleapis.com/golang/${file}
   fi
   [ -d "go" ] || tar -xf ${file}
 
