@@ -55,9 +55,9 @@ fi
 
 # dl the asset
 if type "wget" > /dev/null; then
-  wget -O ${ASSET} --no-check-certificate ${URL}
+  wget --quiet -O ${ASSET} --no-check-certificate ${URL}
 elif type "curl" > /dev/null; then
-  curl -L -o ${ASSET} ${URL}
+  curl -s -L -o ${ASSET} ${URL}
 fi
 
 # is it a debian package ?

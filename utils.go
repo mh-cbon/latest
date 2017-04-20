@@ -221,6 +221,9 @@ func dlURL(u, to string) bool {
 	if err != nil {
 		panic(err)
 	}
+	if response.StatusCode != http.StatusOK {
+		panic(fmt.Errorf("url did not return 200, got %v", response.StatusCode))
+	}
 	defer response.Body.Close()
 	f, err := os.Create(to)
 	if err != nil {
