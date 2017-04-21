@@ -35,7 +35,7 @@ elif type "curl" > /dev/null; then
 fi
 
 if type "sudo" > /dev/null; then
-  sudo sh -c "${DLCMD}"
+  sudo /bin/sh -c "${DLCMD}"
 else
   $DLCMD
 fi
