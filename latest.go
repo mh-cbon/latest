@@ -78,7 +78,7 @@ func main() {
 				ghAssets := ghVersion["assets"].([]interface{})
 				for _, ghAsset := range ghAssets {
 					name := ghAsset.(map[string]interface{})["name"].(string)
-					if filepath.Ext(name) == ext {
+					if filepath.Ext(name) == ext && strings.Index(name, "-"+runtime.GOARCH) > -1 {
 						found = true
 						if asset == "" {
 							asset = name
