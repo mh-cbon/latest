@@ -35,10 +35,11 @@ elif type "curl" > /dev/null; then
 fi
 
 if type "sudo" > /dev/null; then
-  DLCMD='sudo sh -c "${DLCMD}"'
+  sudo sh -c "${DLCMD}"
+else
+  $DLCMD
 fi
 
-$DLCMD
 
 if type "dpkg" > /dev/null; then
   if type "sudo" > /dev/null; then
