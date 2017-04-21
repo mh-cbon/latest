@@ -15,7 +15,7 @@ This tool is part of the [go-github-release workflow](https://github.com/mh-cbon
 ```sh
 go install github.com/mh-cbon/latest
 latest -dry -repo=your/repo
-go run *go -dry -repo=your/repo
+go run *go -dry -repo=mh-cbon/gh-api-cli
 ```
 
 ## install.sh - Usage

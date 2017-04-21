@@ -55,18 +55,7 @@ func main() {
 		arch = runtime.GOARCH
 	}
 
-	dmBin := ""
-	ext := ""
-	if tryexec(`dpkg --version`) == nil {
-		ext = extDEB
-		dmBin = "dpkg"
-	} else if tryexec(`dnf --version`) == nil {
-		ext = extRPM
-		dmBin = "dnf"
-	} else if tryexec(`yum --version`) == nil {
-		ext = extRPM
-		dmBin = "yum"
-	}
+	ext, dmBin := getExt()
 
 	if asset == "" {
 		asset = fmt.Sprintf("%v-%v%v", name, arch, ext)
@@ -99,7 +88,21 @@ func main() {
 		removeAll(asset)
 	}
 }
-
+func getExt() (string, string) {
+	ext := ""
+	dmBin := ""
+	if tryexec(`dpkg --version`) == nil {
+		ext = extDEB
+		dmBin = "dpkg"
+	} else if tryexec(`dnf --version`) == nil {
+		ext = extRPM
+		dmBin = "dnf"
+	} else if tryexec(`yum --version`) == nil {
+		ext = extRPM
+		dmBin = "yum"
+	}
+	return ext, dmBin
+}
 func getVersionAndAsset(repo, ext string) (string, string) {
 	version := ""
 	asset := ""
