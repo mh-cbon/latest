@@ -14,6 +14,7 @@ REPO=`echo ${GH} | cut -d '/' -f 2`
 USER=`echo ${GH} | cut -d '/' -f 1`
 
 DLCMD=""
+DLArgs=""
 FILE=""
 URL=""
 
@@ -29,15 +30,17 @@ elif type "yum" > /dev/null; then
 fi
 
 if type "wget" > /dev/null; then
-  DLCMD='wget -q -O ${FILE} ${URL}'
+  DLCMD='wget -q -O '
+  DLArgs="${FILE} ${URL}"
 elif type "curl" > /dev/null; then
-  DLCMD='curl -s -L ${URL} > ${FILE}'
+  DLCMD='curl -s -L'
+  DLArgs="${FILE} > ${URL}"
 fi
 
 if type "sudo" > /dev/null; then
-  sudo /bin/sh -c "${DLCMD}"
+  sudo /bin/sh -c "${DLCMD} ${DLArgs}"
 else
-  $DLCMD
+  $DLCMD ${DLArgs}
 fi
 
 
