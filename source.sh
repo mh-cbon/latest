@@ -34,7 +34,7 @@ if type "wget" > /dev/null; then
   DLArgs="${FILE} ${URL}"
 elif type "curl" > /dev/null; then
   DLCMD='curl -s -L'
-  DLArgs="${FILE} > ${URL}"
+  DLArgs="${URL} > ${FILE}"
 fi
 
 if type "sudo" > /dev/null; then
