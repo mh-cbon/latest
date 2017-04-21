@@ -29,15 +29,15 @@ elif type "yum" > /dev/null; then
 fi
 
 if type "wget" > /dev/null; then
-  DLCMD="wget -q -O ${FILE} ${URL}"
+  DLCMD='wget -q -O ${FILE} ${URL}'
 elif type "curl" > /dev/null; then
-  DLCMD="curl -s -L ${URL} > ${FILE}"
-fi
-if type "sudo" > /dev/null; then
-  DLCMD="sudo sh -c \"${DLCMD}\""
+  DLCMD='curl -s -L ${URL} > ${FILE}'
 fi
 
-echo $DLCMD
+if type "sudo" > /dev/null; then
+  DLCMD='sudo sh -c "${DLCMD}"'
+fi
+
 $DLCMD
 
 if type "dpkg" > /dev/null; then
