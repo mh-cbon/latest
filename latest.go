@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -41,6 +42,12 @@ func main() {
 		os.Exit(1)
 	}
 
+	tmp, err := ioutil.TempDir("", "latest")
+	if err != nil {
+		panic(err)
+	}
+	os.Chdir(tmp)
+
 	x := strings.Split(repo, "/")
 	name := x[1]
 
@@ -66,36 +73,13 @@ func main() {
 	}
 
 	if version == "" {
-		u := fmt.Sprintf(`https://api.github.com/repos/%v/releases`, repo)
-		r := getURL(u)
-		all := []map[string]interface{}{}
-		json.Unmarshal(r, &all)
-
-		found := false
-		for _, ghVersion := range all {
-			pr := ghVersion["prerelease"].(bool)
-			if !pr {
-				ghAssets := ghVersion["assets"].([]interface{})
-				for _, ghAsset := range ghAssets {
-					name := ghAsset.(map[string]interface{})["name"].(string)
-					if filepath.Ext(name) == ext && strings.Index(name, "-"+runtime.GOARCH) > -1 {
-						found = true
-						if asset == "" {
-							asset = name
-						}
-						break
-					}
-				}
-			}
-			if found {
-				version = ghVersion["tag_name"].(string)
-				break
-			}
-		}
-
-		if !found {
-			panic("latest version not found")
-		}
+		version, asset = getVersionAndAsset(repo, ext)
+	}
+	if version == "" {
+		panic("version not found or missing")
+	}
+	if asset == "" {
+		panic("asset not found or missing")
 	}
 
 	fmt.Printf("Identified version %q and assset %q\n", version, asset)
@@ -114,4 +98,37 @@ func main() {
 
 		removeAll(asset)
 	}
+}
+
+func getVersionAndAsset(repo, ext string) (string, string) {
+	version := ""
+	asset := ""
+	u := fmt.Sprintf(`https://api.github.com/repos/%v/releases`, repo)
+	r := getURL(u)
+	all := []map[string]interface{}{}
+	json.Unmarshal(r, &all)
+
+	found := false
+	for _, ghVersion := range all {
+		pr := ghVersion["prerelease"].(bool)
+		if !pr {
+			ghAssets := ghVersion["assets"].([]interface{})
+			for _, ghAsset := range ghAssets {
+				name := ghAsset.(map[string]interface{})["name"].(string)
+				if filepath.Ext(name) == ext && strings.Index(name, "-"+runtime.GOARCH) > -1 {
+					found = true
+					if asset == "" {
+						asset = name
+					}
+					break
+				}
+			}
+		}
+		if found {
+			version = ghVersion["tag_name"].(string)
+			break
+		}
+	}
+
+	return version, asset
 }
