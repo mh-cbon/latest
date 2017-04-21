@@ -13,42 +13,60 @@
 REPO=`echo ${GH} | cut -d '/' -f 2`
 USER=`echo ${GH} | cut -d '/' -f 1`
 
-if type "dpkg" > /dev/null; then
+DLCMD=""
+FILE=""
+URL=""
 
+if type "dpkg" > /dev/null; then
   FILE=/etc/apt/sources.list.d/${REPO}.list
   URL=http://${USER}.github.io/${REPO}/apt/${REPO}.list
+elif type "dnf" > /dev/null; then
+  FILE=/etc/yum.repos.d/${REPO}.repo
+  URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
+elif type "yum" > /dev/null; then
+  FILE=/etc/yum.repos.d/${REPO}.repo
+  URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
+fi
 
-  if type "wget" > /dev/null; then
-    sudo wget -q -O ${FILE} ${URL}
-  elif type "curl" > /dev/null; then
-    sudo curl -s -L ${URL} > ${FILE}
+if type "wget" > /dev/null; then
+  if type "sudo" > /dev/null; then
+    DLCMD="sudo sh -c \"wget -q -O ${FILE} ${URL}\""
+  else
+    DLCMD="wget -q -O ${FILE} ${URL}"
   fi
-  sudo apt-get install apt-transport-https -y --quiet
-  sudo apt-get update --quiet
-  sudo apt-get install ${REPO} -y --quiet
+elif type "curl" > /dev/null; then
+  if type "sudo" > /dev/null; then
+    DLCMD="sudo sh -c \"curl -s -L ${URL} > ${FILE}\""
+  else
+    DLCMD="curl -s -L ${URL} > ${FILE}"
+  fi
+fi
+
+$DLCMD
+
+if type "dpkg" > /dev/null; then
+  if type "sudo" > /dev/null; then
+    sudo apt-get install apt-transport-https -y --quiet
+    sudo apt-get update --quiet
+    sudo apt-get install ${REPO} -y --quiet
+  else
+    apt-get install apt-transport-https -y --quiet
+    apt-get update --quiet
+    apt-get install ${REPO} -y --quiet
+  fi
 
 elif type "dnf" > /dev/null; then
-
-  FILE=/etc/yum.repos.d/${REPO}.repo
-  URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
-
-  if type "wget" > /dev/null; then
-    sudo wget -q -O ${FILE} ${URL}
-  elif type "curl" > /dev/null; then
-    sudo curl -s -L ${URL} > ${FILE}
+  if type "sudo" > /dev/null; then
+    sudo dnf install ${REPO} -y --quiet
+  else
+    dnf install ${REPO} -y --quiet
   fi
-  sudo dnf install ${REPO} -y --quiet
 
 elif type "yum" > /dev/null; then
-
-  FILE=/etc/yum.repos.d/${REPO}.repo
-  URL=http://${USER}.github.io/${REPO}/rpm/${REPO}.repo
-
-  if type "wget" > /dev/null; then
-    sudo wget -q -O ${FILE} ${URL}
-  elif type "curl" > /dev/null; then
-    sudo curl -s -L ${URL} > ${FILE}
+  if type "sudo" > /dev/null; then
+    sudo yum install ${REPO} -y --quiet
+  else
+    yum install ${REPO} -y --quiet
   fi
-  sudo yum install ${REPO} -y --quiet
 
 fi
