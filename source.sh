@@ -37,6 +37,7 @@ if type "sudo" > /dev/null; then
   DLCMD="sudo sh -c \"${DLCMD}\""
 fi
 
+echo $DLCMD
 $DLCMD
 
 if type "dpkg" > /dev/null; then
