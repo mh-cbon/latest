@@ -7,6 +7,10 @@
 # to use it
 # curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/bintray.sh \
 # | GH=USER/REPO sh -xe
+#
+# for debian, some more arguments are available
+# curl -L https://raw.githubusercontent.com/mh-cbon/latest/master/bintray.sh \
+# | GH=USER/REPO DISTRIB=... COMPONENT=... sh -xe
 
 # GH=$1
 # DISTRIB=$2
@@ -37,13 +41,13 @@ if type "dpkg" > /dev/null; then
   echo "deb https://dl.bintray.com/${USER}/deb ${DISTRIB} ${COMPONENT}" | sudo tee -a /etc/apt/sources.list
 
   if type "sudo" > /dev/null; then
-    sudo apt-get install apt-transport-https -y --quiet
+    sudo apt-get install apt-transport-https software-properties-common -y --quiet
     sudo apt-get update --quiet
-    sudo apt-get install ${REPO} -y --quiet
+    sudo apt-get install ${REPO} -y --quiet --allow-unauthenticated
   else
-    apt-get install apt-transport-https -y --quiet
+    apt-get install apt-transport-https software-properties-common -y --quiet
     apt-get update --quiet
-    apt-get install ${REPO} -y --quiet
+    apt-get install ${REPO} -y --quiet --allow-unauthenticated
   fi
 
 elif type "dnf" > /dev/null; then
